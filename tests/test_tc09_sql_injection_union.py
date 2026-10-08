@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("An toàn thông tin (Security)")
+@allure.feature("SQL Injection")
+@allure.story("TC09 - Union-based SQL Injection khai thác CSDL")
+@allure.severity(allure.severity_level.BLOCKER)
 @pytest.mark.security
 def test_tc09_sql_injection_union(login_page, driver):
     """

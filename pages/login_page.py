@@ -1,9 +1,15 @@
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from selenium.common.exceptions import TimeoutException, UnexpectedAlertPresentException
+from selenium.common.exceptions import TimeoutException
+from base.base_page import BasePage
+import allure
 
-class LoginPage:
+class LoginPage(BasePage):
+    """
+    LoginPage: Quản lý toàn bộ giao diện và thao tác trên form đăng nhập.
+    Tương đương LoginPage.java trong kiến trúc Java/Page Object Model.
+    Kế thừa từ BasePage.
+    """
     URL = "https://vanphongdientu.utc.edu.vn/Login"
     
     # Locators
@@ -15,12 +21,12 @@ class LoginPage:
     LOC_ERROR_MSG = (By.CSS_SELECTOR, "div.error")
     
     def __init__(self, driver, timeout=10):
-        self.driver = driver
-        self.wait = WebDriverWait(driver, timeout)
+        super().__init__(driver, timeout)
         
+    @allure.step("Mở trang Đăng nhập UTC: https://vanphongdientu.utc.edu.vn/Login")
     def open(self):
         """Mở trang đăng nhập"""
-        self.driver.get(self.URL)
+        self.open_url(self.URL)
         self.wait_for_page_ready()
         return self
         
@@ -28,41 +34,39 @@ class LoginPage:
         """Chờ DOM tải xong và form xuất hiện"""
         self.wait.until(EC.presence_of_element_located(self.LOC_USERNAME))
         
+    @allure.step("Nhập tên đăng nhập: '{username}'")
     def enter_username(self, username: str):
         """Nhập tên đăng nhập"""
-        field = self.wait.until(EC.element_to_be_clickable(self.LOC_USERNAME))
-        field.clear()
-        if username:
-            field.send_keys(username)
+        self.send_keys(self.LOC_USERNAME, username)
         return self
         
+    @allure.step("Nhập mật khẩu (đã che giấu)")
     def enter_password(self, password: str):
         """Nhập mật khẩu"""
-        field = self.wait.until(EC.element_to_be_clickable(self.LOC_PASSWORD))
-        field.clear()
-        if password:
-            field.send_keys(password)
+        self.send_keys(self.LOC_PASSWORD, password)
         return self
         
+    @allure.step("Thiết lập tùy chọn 'Giữ tôi luôn đăng nhập': {check}")
     def set_remember_me(self, check: bool = True):
         """Bật / tắt tùy chọn 'Giữ tôi luôn đăng nhập'"""
         checkbox = self.driver.find_element(*self.LOC_REMEMBER_ME)
         is_selected = checkbox.is_selected()
         if (check and not is_selected) or (not check and is_selected):
             try:
-                # Do giao diện tùy biến che giấu checkbox native và dùng label.check
+                # Do giao diện jQuery tùy biến che giấu checkbox native và dùng label.check
                 label = self.driver.find_element(*self.LOC_REMEMBER_ME_LABEL)
                 label.click()
             except Exception:
                 self.driver.execute_script("arguments[0].click();", checkbox)
         return self
         
+    @allure.step("Nhấn nút Đăng nhập")
     def click_login(self):
         """Nhấn nút Đăng nhập"""
-        btn = self.wait.until(EC.element_to_be_clickable(self.LOC_SUBMIT_BTN))
-        btn.click()
+        self.click(self.LOC_SUBMIT_BTN)
         return self
         
+    @allure.step("Thực hiện đăng nhập với tài khoản: '{username}'")
     def login(self, username: str = "", password: str = "", remember_me: bool = False):
         """Thực hiện chuỗi hành động đăng nhập đầy đủ"""
         self.enter_username(username)
@@ -72,13 +76,10 @@ class LoginPage:
         self.click_login()
         return self
         
+    @allure.step("Đọc nội dung thông báo lỗi từ hệ thống")
     def get_error_message(self) -> str:
         """Lấy nội dung thông báo lỗi hiển thị trên trang"""
-        try:
-            error_elem = self.wait.until(EC.visibility_of_element_located(self.LOC_ERROR_MSG))
-            return error_elem.text.strip()
-        except TimeoutException:
-            return ""
+        return self.get_text(self.LOC_ERROR_MSG)
             
     def is_password_masked(self) -> bool:
         """Kiểm tra trường mật khẩu có che giấu ký tự (type='password') hay không"""
@@ -87,18 +88,8 @@ class LoginPage:
         
     def is_alert_displayed(self) -> bool:
         """Kiểm tra có popup alert của trình duyệt xuất hiện hay không"""
-        try:
-            WebDriverWait(self.driver, 2).until(EC.alert_is_present())
-            return True
-        except TimeoutException:
-            return False
+        return self.is_alert_present(timeout=2)
             
     def get_alert_text_and_dismiss(self) -> str:
         """Lấy nội dung alert và đóng popup"""
-        try:
-            alert = self.driver.switch_to.alert
-            text = alert.text
-            alert.accept()
-            return text
-        except Exception:
-            return ""
+        return self.get_alert_text()

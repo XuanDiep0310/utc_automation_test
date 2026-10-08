@@ -8,3 +8,7 @@ venv/
 .idea/
 .vscode/
 ~$*.xlsx
+reports/*.html
+reports/allure-results/
+reports/allure-report/
+reports/allure-history/

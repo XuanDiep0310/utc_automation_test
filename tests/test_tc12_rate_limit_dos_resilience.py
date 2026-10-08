@@ -1,6 +1,11 @@
+import allure
 import pytest
 import requests
 
+@allure.epic("An toàn thông tin (Security)")
+@allure.feature("Tính sẵn sàng & Phòng thủ DoS (Resilience)")
+@allure.story("TC12 - Khả năng chịu tải và phòng thủ request dồn dập (Anti-DoS / Rate Limit)")
+@allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.security
 def test_tc12_rate_limit_dos_resilience(login_page):
     """

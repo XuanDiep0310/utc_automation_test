@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("An toàn thông tin (Security)")
+@allure.feature("Bảo mật Giao thức & Mạng")
+@allure.story("TC15 - Kiểm tra mã hóa dữ liệu HTTPS & SSL")
+@allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.security
 def test_tc15_https_security(driver):
     """

@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("Xác thực & Đăng nhập")
+@allure.feature("Kiểm thử Chức năng (Functional)")
+@allure.story("TC03 - Đúng tên, sai mật khẩu")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_tc03_correct_user_wrong_pass(login_page):
     """
     TC03: Kiểm tra trường hợp đúng tên, sai mật khẩu

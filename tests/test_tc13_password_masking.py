@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("An toàn thông tin (Security)")
+@allure.feature("Bảo vệ dữ liệu người dùng")
+@allure.story("TC13 - Che giấu ký tự mật khẩu (Password Masking)")
+@allure.severity(allure.severity_level.NORMAL)
 @pytest.mark.security
 def test_tc13_password_masking(login_page):
     """

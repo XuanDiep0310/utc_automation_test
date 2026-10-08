@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("Xác thực & Đăng nhập")
+@allure.feature("Kiểm thử Chức năng (Functional)")
+@allure.story("TC02 - Để trống mật khẩu")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_tc02_empty_password(login_page):
     """
     TC02: Kiểm tra để trống mật khẩu

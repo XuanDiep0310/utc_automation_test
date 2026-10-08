@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("An toàn thông tin (Security)")
+@allure.feature("Cross-Site Scripting (XSS)")
+@allure.story("TC10 - Reflected XSS qua thẻ <script>")
+@allure.severity(allure.severity_level.CRITICAL)
 @pytest.mark.security
 def test_tc10_xss_script_injection(login_page, driver):
     """

@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("Xác thực & Đăng nhập")
+@allure.feature("Kiểm thử Ghi nhớ phiên (Persistent Session)")
+@allure.story("TC06 - Đăng nhập không chọn 'Giữ tôi luôn đăng nhập'")
+@allure.severity(allure.severity_level.NORMAL)
 def test_tc06_login_non_persistent(login_page, driver):
     """
     TC06: Đăng nhập thành công và không chọn 'Giữ tôi luôn đăng nhập'

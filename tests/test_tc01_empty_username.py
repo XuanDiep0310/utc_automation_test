@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("Xác thực & Đăng nhập")
+@allure.feature("Kiểm thử Chức năng (Functional)")
+@allure.story("TC01 - Để trống tên đăng nhập")
+@allure.severity(allure.severity_level.CRITICAL)
 def test_tc01_empty_username(login_page):
     """
     TC01: Kiểm tra để trống tên đăng nhập

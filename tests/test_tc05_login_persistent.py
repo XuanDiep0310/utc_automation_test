@@ -1,6 +1,11 @@
+import allure
 import pytest
 from selenium.webdriver.common.by import By
 
+@allure.epic("Xác thực & Đăng nhập")
+@allure.feature("Kiểm thử Ghi nhớ phiên (Persistent Session)")
+@allure.story("TC05 - Đăng nhập có chọn 'Giữ tôi luôn đăng nhập'")
+@allure.severity(allure.severity_level.NORMAL)
 def test_tc05_login_persistent(login_page, driver):
     """
     TC05: Đăng nhập thành công và chọn 'Giữ tôi luôn đăng nhập'

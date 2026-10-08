@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("An toàn thông tin (Security)")
+@allure.feature("SQL Injection")
+@allure.story("TC08 - SQL Injection bypass trên Password")
+@allure.severity(allure.severity_level.BLOCKER)
 @pytest.mark.security
 def test_tc08_sql_injection_password(login_page, driver):
     """

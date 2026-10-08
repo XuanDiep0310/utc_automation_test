@@ -1,5 +1,10 @@
+import allure
 import pytest
 
+@allure.epic("An toàn thông tin (Security)")
+@allure.feature("Kiểm thử Biên & Chống tràn bộ đệm (Boundary)")
+@allure.story("TC14 - Xử lý chuỗi ký tự cực dài 5000 ký tự")
+@allure.severity(allure.severity_level.NORMAL)
 @pytest.mark.security
 def test_tc14_boundary_long_input(login_page, driver):
     """
