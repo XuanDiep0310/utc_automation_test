@@ -12,35 +12,35 @@ permissions:
 
 jobs:
   test:
-    name: Run Selenium Automation Tests & Generate Allure Report
+    name: Run Selenium Automation Tests and Generate Allure Report
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🐍 Setup Python 3.12
+      - name: Setup Python 3.12
         uses: actions/setup-python@v5
         with:
           python-version: "3.12"
           cache: "pip"
 
-      - name: 🌐 Setup Chrome Headless
+      - name: Setup Chrome Headless
         run: |
           sudo apt-get update
           sudo apt-get install -y google-chrome-stable
 
-      - name: 📦 Install Python Dependencies
+      - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: 🧪 Execute Pytest Test Suite
+      - name: Execute Pytest Test Suite
         run: |
           pytest -v --alluredir=reports/allure-results --html=reports/report.html --self-contained-html
         continue-on-error: true
 
-      - name: 📊 Upload Pytest HTML Report Artifact
+      - name: Upload Pytest HTML Report Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -48,7 +48,7 @@ jobs:
           path: reports/report.html
           retention-days: 14
 
-      - name: 📈 Generate Allure Report
+      - name: Generate Allure Report
         uses: simple-elf/allure-report-action@master
         if: always()
         id: allure-report
@@ -58,7 +58,7 @@ jobs:
           allure_history: reports/allure-history
           keep_reports: 20
 
-      - name: 📤 Upload Allure Report Artifact
+      - name: Upload Allure Report Artifact
         uses: actions/upload-artifact@v4
         if: always()
         with:
@@ -66,7 +66,7 @@ jobs:
           path: reports/allure-report
           retention-days: 14
 
-      - name: 🚀 Deploy Allure Report to GitHub Pages
+      - name: Deploy Allure Report to GitHub Pages
         if: always() && github.ref == 'refs/heads/main'
         uses: peaceiris/actions-gh-pages@v3
         with:

@@ -15,7 +15,7 @@ def create_testcase_excel(output_path="testcases/testcases_vanphongdientu.xlsx")
     # Title
     ws_dt.merge_cells("A1:F1")
     title_cell = ws_dt["A1"]
-    title_cell.value = "❖ BẢNG QUYẾT ĐỊNH (DECISION TABLE) - ĐĂNG NHẬP VĂN PHÒNG ĐIỆN TỬ UTC"
+    title_cell.value = "BANG QUYET DINH (DECISION TABLE) - DANG NHAP VAN PHONG DIEN TU UTC"
     title_cell.font = Font(name="Arial", size=14, bold=True, color="1F497D")
     title_cell.alignment = Alignment(horizontal="left", vertical="center")
     
