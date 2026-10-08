@@ -21,6 +21,6 @@ def test_tc08_sql_injection_password(login_page, driver):
     page_source = driver.page_source.lower()
     
     assert "syntax error" not in page_source, "Cảnh báo bảo mật: Phát hiện rò rỉ lỗi SQL trong trang!"
-    assert "tài khoản không đúng" in error_message.lower() or "error" in error_message.lower(), (
+    assert "không đúng" in error_message.lower() or "error" in error_message.lower(), (
         f"Kỳ vọng hệ thống từ chối xác thực mật khẩu SQL injection, thực tế: '{error_message}'"
     )

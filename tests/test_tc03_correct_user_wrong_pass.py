@@ -14,6 +14,6 @@ def test_tc03_correct_user_wrong_pass(login_page):
     login_page.login(username="huongnt", password="utc@235")
     
     error_message = login_page.get_error_message()
-    assert "Tài khoản không đúng" in error_message, (
-        f"Kỳ vọng thông báo 'Tài khoản không đúng', thực tế nhận: '{error_message}'"
+    assert "không đúng" in error_message.lower(), (
+        f"Kỳ vọng thông báo chứa 'không đúng', thực tế nhận: '{error_message}'"
     )

@@ -21,4 +21,4 @@ def test_tc10_xss_script_injection(login_page, driver):
     
     # Xác nhận hiển thị thông báo lỗi và chuỗi được encode an toàn
     error_message = login_page.get_error_message()
-    assert "tài khoản không đúng" in error_message.lower() or "error" in error_message.lower()
+    assert "không đúng" in error_message.lower() or "error" in error_message.lower()

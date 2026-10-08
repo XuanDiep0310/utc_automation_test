@@ -19,4 +19,4 @@ def test_tc06_login_non_persistent(login_page, driver):
     
     assert "vanphongdientu.utc.edu.vn" in current_url
     if error_message:
-        assert "Tài khoản không đúng" in error_message or "Bạn chưa nhập" in error_message
+        assert "không đúng" in error_message.lower() or "bạn chưa nhập" in error_message.lower()

@@ -88,7 +88,7 @@ class LoginPage:
     def is_alert_displayed(self) -> bool:
         """Kiểm tra có popup alert của trình duyệt xuất hiện hay không"""
         try:
-            WebDriverWait(self.driver, 2).until(EC.alert_to_present())
+            WebDriverWait(self.driver, 2).until(EC.alert_is_present())
             return True
         except TimeoutException:
             return False

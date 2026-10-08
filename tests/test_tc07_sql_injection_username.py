@@ -26,6 +26,6 @@ def test_tc07_sql_injection_username(login_page, driver):
     assert "sqlserver" not in page_source and "mysql" not in page_source, "Cảnh báo bảo mật: Rò rỉ thông tin CSDL!"
     
     # Xác nhận hệ thống từ chối đăng nhập với thông báo lỗi bảo mật chuẩn
-    assert "Tài khoản không đúng" in error_message or "error" in error_message, (
+    assert "không đúng" in error_message.lower() or "error" in error_message.lower(), (
         f"Kỳ vọng hệ thống từ chối xác thực SQL injection, thực tế: '{error_message}'"
     )

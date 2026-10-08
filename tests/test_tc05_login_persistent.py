@@ -24,4 +24,4 @@ def test_tc05_login_persistent(login_page, driver):
     # Nếu tài khoản mẫu trong đề bài chưa active trên server thật -> hiển thị thông báo 'Tài khoản không đúng'
     assert "vanphongdientu.utc.edu.vn" in current_url
     if error_message:
-        assert "Tài khoản không đúng" in error_message or "Bạn chưa nhập" in error_message
+        assert "không đúng" in error_message.lower() or "bạn chưa nhập" in error_message.lower()

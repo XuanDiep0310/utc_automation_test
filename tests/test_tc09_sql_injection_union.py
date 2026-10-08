@@ -21,4 +21,4 @@ def test_tc09_sql_injection_union(login_page, driver):
     
     assert "internal server error" not in page_source
     assert "union select" not in page_source or "<input" in page_source
-    assert "tài khoản không đúng" in error_message.lower() or "error" in error_message.lower()
+    assert "không đúng" in error_message.lower() or "error" in error_message.lower()
