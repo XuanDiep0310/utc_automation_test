@@ -1,5 +1,57 @@
 "DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
 "
+    TC02: Kiểm tra để trống mật khẩu
+    Các bước:
+    1. Mở trang https://vanphongdientu.utc.edu.vn/
+    2. Click vào ô username và nhập 'huongnt'
+    3. Click vào ô password và để trống
+    4. Click vào nút Đăng nhập
+    Kỳ vọng:
+    Hiển thị thông báo: 'Bạn chưa nhập mật khẩu'
+    ","639","test_tc02_empty_password","tests","2026-10-08","passed","2026-10-08","","test_tc02_empty_password","",""
+"
+    TC06: Đăng nhập thành công và không chọn 'Giữ tôi luôn đăng nhập'
+    Các bước:
+    1. Mở trang https://vanphongdientu.utc.edu.vn/
+    2. Click vào ô username và nhập tài khoản
+    3. Click vào ô password và nhập mật khẩu
+    4. Không tích chọn 'Giữ tôi luôn đăng nhập'
+    5. Click vào nút Đăng nhập
+    Kỳ vọng:
+    Hệ thống gửi request không kèm cờ ghi nhớ phiên (persistent=0)
+    ","639","test_tc06_login_non_persistent","tests","2026-10-08","passed","2026-10-08","","test_tc06_login_non_persistent","",""
+"
+    TC01: Kiểm tra để trống tên đăng nhập
+    Các bước:
+    1. Mở trang https://vanphongdientu.utc.edu.vn/
+    2. Click vào ô username và để trống
+    3. Click vào ô password và nhập '1256'
+    4. Click vào nút Đăng nhập
+    Kỳ vọng:
+    Hiển thị thông báo: 'Bạn chưa nhập tên đăng nhập'
+    ","1440","test_tc01_empty_username","tests","2026-10-08","passed","2026-10-08","","test_tc01_empty_username","",""
+"
+    TC09: Security Testing - Union-based SQL Injection
+    Mục tiêu: Đảm bảo kẻ tấn công không thể dùng kỹ thuật UNION SELECT để trích xuất dữ liệu schema.
+    Các bước:
+    1. Nhập payload UNION SELECT vào ô Username: ' UNION SELECT 1, 'admin', 'hash' --
+    2. Nhập mật khẩu: '123'
+    3. Click nút Đăng nhập
+    Kỳ vọng:
+    - Yêu cầu bị từ chối
+    - Trang web không hiển thị lỗi 500 hoặc rò rỉ cấu trúc bảng cơ sở dữ liệu
+    ","683","test_tc09_sql_injection_union","tests","2026-10-08","passed","2026-10-08","","test_tc09_sql_injection_union","",""
+"
+    TC04: Kiểm tra trường hợp sai tên, đúng mật khẩu
+    Các bước:
+    1. Mở trang https://vanphongdientu.utc.edu.vn/
+    2. Click vào ô username và nhập 'huongthunguyen'
+    3. Click vào ô password và nhập '123456@utc'
+    4. Click vào nút Đăng nhập
+    Kỳ vọng:
+    Hiển thị thông báo: 'Tài khoản không đúng'
+    ","679","test_tc04_wrong_user_correct_pass","tests","2026-10-08","passed","2026-10-08","","test_tc04_wrong_user_correct_pass","",""
+"
     TC07: Security Testing - SQL Injection Bypass trên trường Username
     Mục tiêu: Đảm bảo hệ thống sử dụng Prepared Statements/Parameterized Queries,
     ngăn chặn kẻ tấn công vượt qua xác thực bằng SQL injection payload.
@@ -11,62 +63,7 @@
     - Không bị bypass đăng nhập
     - Trả về thông báo lỗi chuẩn 'Tài khoản không đúng'
     - Không để lộ lỗi cú pháp SQL (SQL syntax error, ODBC/OLEDB exception)
-    ","748","test_tc07_sql_injection_username","tests","2026-10-08","passed","2026-10-08","","test_tc07_sql_injection_username","",""
-"
-    TC15: Security Testing - Kiểm tra giao thức bảo mật HTTPS & SSL
-    Mục tiêu: Đảm bảo luồng truyền tải thông tin đăng nhập được mã hóa an toàn qua HTTPS,
-    ngăn chặn tấn công nghe lén đường truyền mạng (Man-In-The-Middle / Packet Sniffing).
-    Các bước:
-    1. Truy cập vào trang web https://vanphongdientu.utc.edu.vn/
-    2. Kiểm tra URL hiện tại của trình duyệt
-    Kỳ vọng:
-    - URL bắt đầu bằng giao thức 'https://'
-    ","2325","test_tc15_https_security","tests","2026-10-08","passed","2026-10-08","","test_tc15_https_security","",""
-"
-    TC06: Đăng nhập thành công và không chọn 'Giữ tôi luôn đăng nhập'
-    Các bước:
-    1. Mở trang https://vanphongdientu.utc.edu.vn/
-    2. Click vào ô username và nhập tài khoản
-    3. Click vào ô password và nhập mật khẩu
-    4. Không tích chọn 'Giữ tôi luôn đăng nhập'
-    5. Click vào nút Đăng nhập
-    Kỳ vọng:
-    Hệ thống gửi request không kèm cờ ghi nhớ phiên (persistent=0)
-    ","773","test_tc06_login_non_persistent","tests","2026-10-08","passed","2026-10-08","","test_tc06_login_non_persistent","",""
-"
-    TC13: Security Testing - Kiểm tra che giấu ký tự mật khẩu (Password Masking)
-    Mục tiêu: Đảm bảo trường nhập mật khẩu được cấu hình type='password' trong HTML DOM,
-    ngăn ngừa lộ mật khẩu trước các nguy cơ nhìn trộm màn hình (shoulder surfing).
-    Các bước:
-    1. Mở trang đăng nhập
-    2. Kiểm tra thuộc tính type của ô mật khẩu
-    3. Nhập chuỗi mật khẩu thử nghiệm
-    Kỳ vọng:
-    - Thuộc tính type='password'
-    - Ký tự được hiển thị dưới dạng dấu chấm hoặc ký tự ẩn
-    ","11","test_tc13_password_masking","tests","2026-10-08","passed","2026-10-08","","test_tc13_password_masking","",""
-"
-    TC12: Security Testing - Kiểm tra khả năng xử lý request dồn dập (Anti-DoS / Rate Limit Resilience)
-    Mục tiêu: Đảm bảo khi nhận nhiều yêu cầu xác thực liên tiếp trong khoảng thời gian ngắn,
-    hệ thống không bị sập dịch vụ (Internal Server Error 500) và duy trì tính khả dụng (Availability).
-    Các bước:
-    1. Gửi mô phỏng 5 yêu cầu đăng nhập liên tiếp với thông tin ngẫu nhiên
-    2. Kiểm tra mã trạng thái phản hồi HTTP của từng yêu cầu
-    3. Kiểm tra trang đăng nhập vẫn hoạt động bình thường trên trình duyệt
-    Kỳ vọng:
-    - Server không trả về mã lỗi 500 hoặc bị crash
-    - Mã trạng thái phản hồi hợp lệ (200 OK, 302 Redirect hoặc 429 Too Many Requests)
-    ","4284","test_tc12_rate_limit_dos_resilience","tests","2026-10-08","passed","2026-10-08","","test_tc12_rate_limit_dos_resilience","",""
-"
-    TC04: Kiểm tra trường hợp sai tên, đúng mật khẩu
-    Các bước:
-    1. Mở trang https://vanphongdientu.utc.edu.vn/
-    2. Click vào ô username và nhập 'huongthunguyen'
-    3. Click vào ô password và nhập '123456@utc'
-    4. Click vào nút Đăng nhập
-    Kỳ vọng:
-    Hiển thị thông báo: 'Tài khoản không đúng'
-    ","733","test_tc04_wrong_user_correct_pass","tests","2026-10-08","passed","2026-10-08","","test_tc04_wrong_user_correct_pass","",""
+    ","768","test_tc07_sql_injection_username","tests","2026-10-08","passed","2026-10-08","","test_tc07_sql_injection_username","",""
 "
     TC03: Kiểm tra trường hợp đúng tên, sai mật khẩu
     Các bước:
@@ -76,72 +73,7 @@
     4. Click vào nút Đăng nhập
     Kỳ vọng:
     Hiển thị thông báo: 'Tài khoản không đúng'
-    ","725","test_tc03_correct_user_wrong_pass","tests","2026-10-08","passed","2026-10-08","","test_tc03_correct_user_wrong_pass","",""
-"
-    TC11: Security Testing - HTML Event-based Injection
-    Mục tiêu: Đảm bảo các thuộc tính event handler như onerror trong thẻ HTML không bị chèn vào DOM.
-    Các bước:
-    1. Nhập payload vào Username: ""><img src=x onerror=alert('xss')>
-    2. Nhập mật khẩu: '123'
-    3. Click nút Đăng nhập
-    Kỳ vọng:
-    - Không kích hoạt alert box
-    - Hệ thống xử lý chuỗi an toàn
-    ","2329","test_tc11_xss_html_injection","tests","2026-10-08","passed","2026-10-08","","test_tc11_xss_html_injection","",""
-"
-    TC09: Security Testing - Union-based SQL Injection
-    Mục tiêu: Đảm bảo kẻ tấn công không thể dùng kỹ thuật UNION SELECT để trích xuất dữ liệu schema.
-    Các bước:
-    1. Nhập payload UNION SELECT vào ô Username: ' UNION SELECT 1, 'admin', 'hash' --
-    2. Nhập mật khẩu: '123'
-    3. Click nút Đăng nhập
-    Kỳ vọng:
-    - Yêu cầu bị từ chối
-    - Trang web không hiển thị lỗi 500 hoặc rò rỉ cấu trúc bảng cơ sở dữ liệu
-    ","754","test_tc09_sql_injection_union","tests","2026-10-08","passed","2026-10-08","","test_tc09_sql_injection_union","",""
-"
-    TC10: Security Testing - Cross-Site Scripting (Reflected XSS) qua thẻ <script>
-    Mục tiêu: Đảm bảo dữ liệu đầu vào được escape mã hóa HTML, không thực thi JavaScript trên trình duyệt.
-    Các bước:
-    1. Nhập payload XSS vào Username: <script>alert('xss_test')</script>
-    2. Nhập mật khẩu: '123'
-    3. Click nút Đăng nhập
-    Kỳ vọng:
-    - Không xuất hiện dialog/alert của trình duyệt
-    - Ứng dụng xử lý đầu vào an toàn
-    ","2291","test_tc10_xss_script_injection","tests","2026-10-08","passed","2026-10-08","","test_tc10_xss_script_injection","",""
-"
-    TC08: Security Testing - SQL Injection Bypass trên trường Password
-    Mục tiêu: Đảm bảo trường Password không bị khai thác để sửa đổi logic câu lệnh SELECT SQL.
-    Các bước:
-    1. Nhập username: 'admin'
-    2. Nhập payload SQL injection vào ô Password: ' OR '1'='1
-    3. Click nút Đăng nhập
-    Kỳ vọng:
-    - Không bị bypass đăng nhập trái phép
-    - Hiển thị thông báo 'Tài khoản không đúng'
-    - Không hiển thị exception stack trace
-    ","732","test_tc08_sql_injection_password","tests","2026-10-08","passed","2026-10-08","","test_tc08_sql_injection_password","",""
-"
-    TC05: Đăng nhập thành công và chọn 'Giữ tôi luôn đăng nhập'
-    Các bước:
-    1. Mở trang https://vanphongdientu.utc.edu.vn/
-    2. Click vào ô username và nhập tài khoản
-    3. Click vào ô password và nhập mật khẩu
-    4. Tích chọn 'Giữ tôi luôn đăng nhập' (persistent checkbox)
-    5. Click vào nút Đăng nhập
-    6. Kiểm tra trạng thái phiên và hành vi ghi nhớ đăng nhập
-    ","788","test_tc05_login_persistent","tests","2026-10-08","passed","2026-10-08","","test_tc05_login_persistent","",""
-"
-    TC02: Kiểm tra để trống mật khẩu
-    Các bước:
-    1. Mở trang https://vanphongdientu.utc.edu.vn/
-    2. Click vào ô username và nhập 'huongnt'
-    3. Click vào ô password và để trống
-    4. Click vào nút Đăng nhập
-    Kỳ vọng:
-    Hiển thị thông báo: 'Bạn chưa nhập mật khẩu'
-    ","671","test_tc02_empty_password","tests","2026-10-08","passed","2026-10-08","","test_tc02_empty_password","",""
+    ","678","test_tc03_correct_user_wrong_pass","tests","2026-10-08","passed","2026-10-08","","test_tc03_correct_user_wrong_pass","",""
 "
     TC14: Boundary & Security Testing - Kiểm tra nhập chuỗi ký tự cực dài (5000 ký tự)
     Mục tiêu: Đảm bảo server và client xử lý tốt chuỗi dữ liệu lớn,
@@ -154,14 +86,82 @@
     Kỳ vọng:
     - Ứng dụng xử lý ổn định, không treo trình duyệt hoặc crash máy chủ
     - Trả về thông báo lỗi hợp lệ
-    ","4754","test_tc14_boundary_long_input","tests","2026-10-08","passed","2026-10-08","","test_tc14_boundary_long_input","",""
+    ","3789","test_tc14_boundary_long_input","tests","2026-10-08","passed","2026-10-08","","test_tc14_boundary_long_input","",""
 "
-    TC01: Kiểm tra để trống tên đăng nhập
+    TC05: Đăng nhập thành công và chọn 'Giữ tôi luôn đăng nhập'
     Các bước:
     1. Mở trang https://vanphongdientu.utc.edu.vn/
-    2. Click vào ô username và để trống
-    3. Click vào ô password và nhập '1256'
-    4. Click vào nút Đăng nhập
+    2. Click vào ô username và nhập tài khoản
+    3. Click vào ô password và nhập mật khẩu
+    4. Tích chọn 'Giữ tôi luôn đăng nhập' (persistent checkbox)
+    5. Click vào nút Đăng nhập
+    6. Kiểm tra trạng thái phiên và hành vi ghi nhớ đăng nhập
+    ","657","test_tc05_login_persistent","tests","2026-10-08","passed","2026-10-08","","test_tc05_login_persistent","",""
+"
+    TC10: Security Testing - Cross-Site Scripting (Reflected XSS) qua thẻ <script>
+    Mục tiêu: Đảm bảo dữ liệu đầu vào được escape mã hóa HTML, không thực thi JavaScript trên trình duyệt.
+    Các bước:
+    1. Nhập payload XSS vào Username: <script>alert('xss_test')</script>
+    2. Nhập mật khẩu: '123'
+    3. Click nút Đăng nhập
     Kỳ vọng:
-    Hiển thị thông báo: 'Bạn chưa nhập tên đăng nhập'
-    ","749","test_tc01_empty_username","tests","2026-10-08","passed","2026-10-08","","test_tc01_empty_username","",""
+    - Không xuất hiện dialog/alert của trình duyệt
+    - Ứng dụng xử lý đầu vào an toàn
+    ","2683","test_tc10_xss_script_injection","tests","2026-10-08","passed","2026-10-08","","test_tc10_xss_script_injection","",""
+"
+    TC12: Security Testing - Kiểm tra khả năng xử lý request dồn dập (Anti-DoS / Rate Limit Resilience)
+    Mục tiêu: Đảm bảo khi nhận nhiều yêu cầu xác thực liên tiếp trong khoảng thời gian ngắn,
+    hệ thống không bị sập dịch vụ (Internal Server Error 500) và duy trì tính khả dụng (Availability).
+    Các bước:
+    1. Gửi mô phỏng 5 yêu cầu đăng nhập liên tiếp với thông tin ngẫu nhiên
+    2. Kiểm tra mã trạng thái phản hồi HTTP của từng yêu cầu
+    3. Kiểm tra trang đăng nhập vẫn hoạt động bình thường trên trình duyệt
+    Kỳ vọng:
+    - Server không trả về mã lỗi 500 hoặc bị crash
+    - Mã trạng thái phản hồi hợp lệ (200 OK, 302 Redirect hoặc 429 Too Many Requests)
+    ","6070","test_tc12_rate_limit_dos_resilience","tests","2026-10-08","passed","2026-10-08","","test_tc12_rate_limit_dos_resilience","",""
+"
+    TC08: Security Testing - SQL Injection Bypass trên trường Password
+    Mục tiêu: Đảm bảo trường Password không bị khai thác để sửa đổi logic câu lệnh SELECT SQL.
+    Các bước:
+    1. Nhập username: 'admin'
+    2. Nhập payload SQL injection vào ô Password: ' OR '1'='1
+    3. Click nút Đăng nhập
+    Kỳ vọng:
+    - Không bị bypass đăng nhập trái phép
+    - Hiển thị thông báo 'Tài khoản không đúng'
+    - Không hiển thị exception stack trace
+    ","702","test_tc08_sql_injection_password","tests","2026-10-08","passed","2026-10-08","","test_tc08_sql_injection_password","",""
+"
+    TC11: Security Testing - HTML Event-based Injection
+    Mục tiêu: Đảm bảo các thuộc tính event handler như onerror trong thẻ HTML không bị chèn vào DOM.
+    Các bước:
+    1. Nhập payload vào Username: ""><img src=x onerror=alert('xss')>
+    2. Nhập mật khẩu: '123'
+    3. Click nút Đăng nhập
+    Kỳ vọng:
+    - Không kích hoạt alert box
+    - Hệ thống xử lý chuỗi an toàn
+    ","2251","test_tc11_xss_html_injection","tests","2026-10-08","passed","2026-10-08","","test_tc11_xss_html_injection","",""
+"
+    TC15: Security Testing - Kiểm tra giao thức bảo mật HTTPS & SSL
+    Mục tiêu: Đảm bảo luồng truyền tải thông tin đăng nhập được mã hóa an toàn qua HTTPS,
+    ngăn chặn tấn công nghe lén đường truyền mạng (Man-In-The-Middle / Packet Sniffing).
+    Các bước:
+    1. Truy cập vào trang web https://vanphongdientu.utc.edu.vn/
+    2. Kiểm tra URL hiện tại của trình duyệt
+    Kỳ vọng:
+    - URL bắt đầu bằng giao thức 'https://'
+    ","2044","test_tc15_https_security","tests","2026-10-08","passed","2026-10-08","","test_tc15_https_security","",""
+"
+    TC13: Security Testing - Kiểm tra che giấu ký tự mật khẩu (Password Masking)
+    Mục tiêu: Đảm bảo trường nhập mật khẩu được cấu hình type='password' trong HTML DOM,
+    ngăn ngừa lộ mật khẩu trước các nguy cơ nhìn trộm màn hình (shoulder surfing).
+    Các bước:
+    1. Mở trang đăng nhập
+    2. Kiểm tra thuộc tính type của ô mật khẩu
+    3. Nhập chuỗi mật khẩu thử nghiệm
+    Kỳ vọng:
+    - Thuộc tính type='password'
+    - Ký tự được hiển thị dưới dạng dấu chấm hoặc ký tự ẩn
+    ","9","test_tc13_password_masking","tests","2026-10-08","passed","2026-10-08","","test_tc13_password_masking","",""
